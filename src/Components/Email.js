@@ -136,12 +136,8 @@ const EmailForm = () => {
                 <Button variant="dark" type="submit">Create Link</Button>
                 </Col>
             </Form.Group>
-            {(!linkLoading) && (
-                <div>
-                    <DisplayLink label='Link:' url={link} copy={false}/>
-                    <DisplayLink label='Full Link:' url={url} copy={true}/>
-                </div> 
-            )}          
+            <DisplayLink label='Link:' url={link}/>
+            <DisplayLink label='Full Link:' url={url}/>        
         </Form>
         </Container>
     )
