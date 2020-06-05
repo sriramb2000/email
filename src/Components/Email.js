@@ -5,7 +5,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import Flexbox from 'flexbox-react';
 
 import { Format, Shorten } from '../Logic';
 import DisplayLink from './DisplayLink';
@@ -133,7 +132,7 @@ const EmailForm = () => {
 
             <Form.Group as={Row}>
                 <Col sm={{ span: 10, offset: 2 }}>
-                <Button type="submit">Create Link</Button>
+                <Button variant="dark" type="submit">Create Link</Button>
                 </Col>
             </Form.Group>
             {(!linkLoading) && (
