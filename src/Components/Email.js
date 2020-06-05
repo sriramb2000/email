@@ -69,7 +69,7 @@ const EmailForm = () => {
 
             <Form.Group as={Row} controlId="formHorizontalEmail">
                 <Form.Label column sm={2}>
-                Bcc:
+                Cc:
                 </Form.Label>
                 <Col sm={7}>
                 <Form.Control 
@@ -89,7 +89,7 @@ const EmailForm = () => {
 
             <Form.Group as={Row} controlId="formHorizontalEmail">
                 <Form.Label column sm={2}>
-                Cc:
+                Bcc:
                 </Form.Label>
                 <Col sm={7}>
                 <Form.Control 
