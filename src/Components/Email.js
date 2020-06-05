@@ -8,16 +8,17 @@ import Button from 'react-bootstrap/Button';
 import Flexbox from 'flexbox-react';
 
 import { Format, Shorten } from '../Logic';
+import DisplayLink from './DisplayLink';
 
 
 export default function Email() {
     return (
         <Row>
-            <Col xs={0} md={1.5} lg={3}/>
+            <Col xs={0} lg={2}/>
             <Col>
                 <EmailForm/>
             </Col>
-            <Col xs={0} md={1.5} lg={3}/>
+            <Col xs={0} lg={2}/>
         </Row>
     )
 }
@@ -26,15 +27,17 @@ const EmailForm = () => {
     const { handleSubmit, register, errors } = useForm();
     const [linkLoading, setLinkLoading] = useState(true);
     const [link, setLink] = useState("");
+    const [url, setUrl] = useState("");
     const onSubmit = (values) => {
-        let { url } = Format(values);
+        let temp = Format(values).url;
         setLinkLoading(true);
-        Shorten(url).then((res, err) => {
+        Shorten(temp).then((res, err) => {
             setLinkLoading(false);
             if (err) {
                 setLink(err);
             } else {
                 setLink(res);
+                setUrl(temp);
             }
         })
     }
@@ -47,7 +50,7 @@ const EmailForm = () => {
                 <Form.Label column sm={2}>
                 *To:
                 </Form.Label>
-                <Col sm={10}>
+                <Col sm={7}>
                 <Form.Control 
                 name="recipients"
                 placeholder="Please enter as a semicolon separated list."
@@ -55,47 +58,53 @@ const EmailForm = () => {
                 required: "A Recipient is required",
                 pattern: {
                     value: emailListRegex,
-                    message: 'shit'
+                    message: 'Please enter valid email(s)'
                 }
                 })}/>
                 </Col>
-                {errors.recipients && errors.recipients.message}
+                <Form.Text muted>
+                    {errors.recipients && errors.recipients.message}
+                </Form.Text>
             </Form.Group>
 
             <Form.Group as={Row} controlId="formHorizontalEmail">
                 <Form.Label column sm={2}>
                 Bcc:
                 </Form.Label>
-                <Col sm={10}>
+                <Col sm={7}>
                 <Form.Control 
                 name="cc"
                 placeholder="Please enter as a semicolon separated list."
                 ref={register({
                 pattern: {
                     value: emailListRegex,
-                    message: 'shit'
+                    message: 'Please enter valid email(s)'
                 }
                 })}/>
                 </Col>
-                {errors.cc && errors.cc.message}
+                <Form.Text muted>
+                    {errors.cc && errors.cc.message}
+                </Form.Text>
             </Form.Group>
 
             <Form.Group as={Row} controlId="formHorizontalEmail">
                 <Form.Label column sm={2}>
                 Cc:
                 </Form.Label>
-                <Col sm={10}>
+                <Col sm={7}>
                 <Form.Control 
                 name="bcc"
                 placeholder="Please enter as a semicolon separated list."
                 ref={register({
                 pattern: {
                     value: emailListRegex,
-                    message: 'shit'
+                    message: 'Please enter valid email(s)'
                 }
                 })}/>
                 </Col>
-                {errors.bcc && errors.bcc.message}
+                <Form.Text muted>
+                    {errors.bcc && errors.bcc.message}
+                </Form.Text>
             </Form.Group>
 
             <Form.Group as={Row} controlId="formHorizontalEmail">
@@ -107,7 +116,6 @@ const EmailForm = () => {
                 name="subject"
                 ref={register()}/>
                 </Col>
-                {errors.subject && errors.subject.message}
             </Form.Group>
 
             <Form.Group as={Row} controlId="formHorizontalEmail">
@@ -121,7 +129,6 @@ const EmailForm = () => {
                 as="textarea"
                 rows="10"/>
                 </Col>
-                {errors.body && errors.body.message}
             </Form.Group>
 
             <Form.Group as={Row}>
@@ -129,18 +136,14 @@ const EmailForm = () => {
                 <Button type="submit">Create Link</Button>
                 </Col>
             </Form.Group>
+            {(!linkLoading) && (
+                <div>
+                    <DisplayLink label='Link:' url={link} copy={false}/>
+                    <DisplayLink label='Full Link:' url={url} copy={true}/>
+                </div> 
+            )}          
         </Form>
-        <Row>
-            {(!linkLoading) && <DisplayLink url={link}/>}
-        </Row>
         </Container>
     )
 }
 
-const DisplayLink = ({url}) => {
-    return (
-        <a href={url}>
-            {url}
-        </a>
-    )
-}
