@@ -41,6 +41,7 @@ const EmailForm = () => {
         })
     }
     const emailListRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25}(;[ ]*([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})*$/i;
+    const emailPlaceholder = "Use semicolons to separate emails."
 
     return (
         <Container>
@@ -52,7 +53,7 @@ const EmailForm = () => {
                 <Col sm={7}>
                 <Form.Control 
                 name="recipients"
-                placeholder="Please enter as a semicolon separated list."
+                placeholder={emailPlaceholder}
                 ref={register({
                 required: "A Recipient is required",
                 pattern: {
@@ -73,7 +74,7 @@ const EmailForm = () => {
                 <Col sm={7}>
                 <Form.Control 
                 name="cc"
-                placeholder="Please enter as a semicolon separated list."
+                placeholder={emailPlaceholder}
                 ref={register({
                 pattern: {
                     value: emailListRegex,
@@ -93,7 +94,7 @@ const EmailForm = () => {
                 <Col sm={7}>
                 <Form.Control 
                 name="bcc"
-                placeholder="Please enter as a semicolon separated list."
+                placeholder={emailPlaceholder}
                 ref={register({
                 pattern: {
                     value: emailListRegex,
