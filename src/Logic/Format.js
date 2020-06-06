@@ -1,13 +1,5 @@
 const regex = {
-    newLine:  /[\n\r]/g,
-    tab: /\t/g,
     space: /\s/g,
-}
-
-const encoding = {
-    newLine: '%0A%0D',
-    tab: '%09',
-    space: '%20',
 }
 
 const FormatEmails = (str) => {
@@ -35,12 +27,12 @@ export default function FormatMailTo({recipients, cc, bcc, subject, body}) {
     }
     
     if (subject) {
-        let emailSubject = "subject="+subject.replace(regex.space, encoding.space);
+        let emailSubject = "subject="+encodeURIComponent(subject);
         rest.push(emailSubject);
     }
 
     if (body) {
-        let emailBody = "body="+body.replace(regex.newLine, encoding.newLine).replace(regex.tab, encoding.tab).replace(regex.space, encoding.space);
+        let emailBody = "body="+encodeURIComponent(body);
         rest.push(emailBody);
     }
 
