@@ -2,7 +2,7 @@
   "name": "email",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://sriramb2000.github.io/email",
+  "homepage": "https://prefillemailfor.me",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
