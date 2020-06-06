@@ -24,24 +24,26 @@ export default function Email() {
 
 const EmailForm = () => {
     const { handleSubmit, register, errors } = useForm();
-    const [linkLoading, setLinkLoading] = useState(true);
     const [link, setLink] = useState("");
     const [url, setUrl] = useState("");
-    const onSubmit = (values) => {
-        let temp = Format(values).url;
-        setLinkLoading(true);
-        Shorten(temp).then((res, err) => {
-            setLinkLoading(false);
-            if (err) {
-                setLink(err);
-            } else {
-                setLink(res);
-                setUrl(temp);
-            }
-        })
-    }
+
     const emailListRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25}(;[ ]*([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})*$/i;
     const emailPlaceholder = "Use semicolons to separate emails."
+    const errorPlaceholder = "Could not shorten link. Use full link."
+
+    const onSubmit = (values) => {
+        let temp = Format(values).url;
+        Shorten(temp).then((res) => {
+            console.log(res);
+            if (res.err) {
+                setLink(errorPlaceholder);
+            } else {
+                setLink(res.res);
+            }
+            setUrl(temp);
+        })
+    }
+    
 
     return (
         <Container>
