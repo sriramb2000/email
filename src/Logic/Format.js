@@ -1,6 +1,11 @@
 const regex = {
     space: /\s/g,
-}
+    return: /%0A/g,
+};
+
+const encoding = {
+    return: '%0D%0A',
+};
 
 const FormatEmails = (str) => {
     let strArray = str.replace(regex.space,'').split(';');
@@ -32,7 +37,7 @@ export default function FormatMailTo({recipients, cc, bcc, subject, body}) {
     }
 
     if (body) {
-        let emailBody = "body="+encodeURIComponent(body);
+        let emailBody = "body="+encodeURIComponent(body).replace(regex.return, encoding.return);
         rest.push(emailBody);
     }
 
